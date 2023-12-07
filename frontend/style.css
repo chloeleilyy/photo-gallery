@@ -1,0 +1,97 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+.gallery-container {
+    width: 80%;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.gallery-container h1 {
+    color: #333;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.search-box, .btn {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.gallery-item {
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.gallery-info {
+    text-align: left;
+    margin-top: 10px; /* 调整上边距以与图片分开 */
+    font-size: 14px; /* 可选的字体大小调整 */
+    color: #666; /* 可选的字体颜色调整 */
+}
+
+.list-view .gallery-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* 可选的，增加列表项之间的分隔线 */
+}
+
+.list-view img {
+    width: 50px; /* 调整为更小的宽度 */
+    height: auto; /* 保持宽高比 */
+    margin-right: 20px;
+    border-radius: 5px; /* 可选的，为图片添加圆角 */
+}
+
+.gallery-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.gallery-view .gallery-item {
+    width: calc(33% - 20px); /* 每行三张图片 */
+    margin-bottom: 15px;
+}
+
+.gallery-view img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
