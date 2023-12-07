@@ -95,3 +95,16 @@ body {
     height: auto;
     border-radius: 5px;
 }
+
+.image-detail-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.image-detail-container img {
+    max-width: none;
+    height: auto;
+    margin-bottom: 20px;
+}

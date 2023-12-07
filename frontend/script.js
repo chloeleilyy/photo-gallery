@@ -18,6 +18,9 @@ function loadImages() {
     images.forEach(image => {
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('gallery-item');
+        imgContainer.addEventListener('click', function() {
+            showImageDetail(image);
+        });
 
         const img = document.createElement('img');
         img.src = image.url;
@@ -33,6 +36,11 @@ function loadImages() {
 
         gallery.appendChild(imgContainer);
     });
+}
+
+function showImageDetail(imageData) {
+    localStorage.setItem('imageDetail', JSON.stringify(imageData));
+    window.location.href = 'image-detail.html';
 }
 
 function setupToggleView() {
