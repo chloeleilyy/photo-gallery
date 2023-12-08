@@ -108,3 +108,29 @@ body {
     height: auto;
     margin-bottom: 20px;
 }
+
+/* 文件上传样式 */
+#fileUpload {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    color: #333;
+}
+
+/* 修正文件上传按钮在某些浏览器中的样式 */
+#fileUpload::-webkit-file-upload-button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#fileUpload::-webkit-file-upload-button:hover {
+    background-color: #0056b3;
+}

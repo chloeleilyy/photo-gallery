@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadImages();
     setupToggleView();
     setupSearch();
-    // setupUpload(); // 如果你计划实现上传功能，可以添加这行代码
+    setupUpload();
 });
 
 function loadImages() {
@@ -18,7 +18,7 @@ function loadImages() {
     images.forEach(image => {
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('gallery-item');
-        imgContainer.addEventListener('click', function() {
+        imgContainer.addEventListener('click', function () {
             showImageDetail(image);
         });
 
@@ -47,7 +47,7 @@ function setupToggleView() {
     const toggleButton = document.getElementById('toggleView');
     const gallery = document.getElementById('gallery');
 
-    toggleButton.addEventListener('click', function() {
+    toggleButton.addEventListener('click', function () {
         if (gallery.classList.contains('list-view')) {
             gallery.classList.remove('list-view');
             gallery.classList.add('gallery-view');
@@ -65,7 +65,7 @@ function setupSearch() {
     const searchButton = document.getElementById('searchButton');
     const searchBox = document.getElementById('searchBox');
 
-    searchButton.addEventListener('click', function() {
+    searchButton.addEventListener('click', function () {
         const searchTerm = searchBox.value.toLowerCase();
         filterImagesByTopic(searchTerm);
     });
@@ -86,6 +86,32 @@ function filterImagesByTopic(topic) {
     }
 }
 
-// function setupUpload() {
-//     // 如果你计划实现上传功能，可以在这里添加逻辑
-// }
+function setupUpload() {
+    const uploadButton = document.getElementById('uploadButton');
+    uploadButton.addEventListener('click', function () {
+        const fileInput = document.getElementById('fileUpload');
+        if (fileInput.files.length === 0) {
+            console.log('No file selected.');
+            return;
+        }
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('filename', file.name);
+        formData.append('file', file);
+        fetch('https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/upload_image', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                return response.json(); // Parsing response body as JSON
+            }
+            throw new Error('Network response was not ok.');
+        }).then(data => {
+            console.log('File uploaded successfully.');
+            console.log('Response from Lambda:', data); // Outputting data from Lambda
+        }).catch(err => console.log(err));
+    });
+}
+
+
+
