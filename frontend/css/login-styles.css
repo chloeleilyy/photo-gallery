@@ -1,0 +1,72 @@
+/* login-styles.css */
+
+/* 登录容器样式 */
+#loginContainer {
+    width: 300px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* 登录输入框样式 */
+#usernameInput {
+    width: calc(100% - 22px); /* 减去padding和border */
+    padding: 10px;
+    margin-bottom: 10px; /* 在输入框和按钮之间添加一些间距 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* 登录按钮样式 */
+#loginButton {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginButton:hover {
+    background-color: #0056b3;
+}
+
+
+/* 用户信息和登出按钮的容器样式 */
+#userContainer {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px; /* 根据需要调整宽度 */
+}
+
+/* 用户名显示样式 */
+#usernameDisplay {
+    color: #333;
+    font-size: 16px; /* 根据需要调整字体大小 */
+}
+
+/* 登出按钮样式 */
+#logoutButton {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545; /* 登出按钮通常使用不同的颜色 */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+    background-color: #c82333;
+}

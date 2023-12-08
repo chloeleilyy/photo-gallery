@@ -11,6 +11,7 @@ logger.setLevel(logging.INFO)
 
 s3 = boto3.client('s3')
 
+
 def lambda_handler(event, context):
     try:
         content_type = event['headers'].get('content-type', '')
@@ -25,8 +26,9 @@ def lambda_handler(event, context):
         filename = form_data["filename"][0]
         file_content = b''.join(form_data["file"])
         logger.info(filename)
-        s3.put_object(Bucket='photo-gallery-storage', Key=filename, Body=file_content)
-        
+        s3.put_object(Bucket='photo-gallery-storage',
+                      Key=filename, Body=file_content)
+
         return {
             'statusCode': 200,
             'body': json.dumps('File uploaded to S3.')
