@@ -9,7 +9,7 @@ function getImages() {
                 const imgContainer = document.createElement('div');
                 imgContainer.classList.add('gallery-item');
                 imgContainer.addEventListener('click', function () {
-                    showImageDetail(image);
+                    showOriginalImage(image);
                 });
 
                 const img = document.createElement('img');
@@ -19,9 +19,10 @@ function getImages() {
 
                 const info = document.createElement('div');
                 info.classList.add('gallery-info');
-                info.innerHTML = `<strong>Username:</strong> ${image.username}<br>
-                                  <strong>Topic:</strong> ${image.topic}<br>
-                                  <strong>Timestamp:</strong> ${image.timestamp}`;
+                info.innerHTML = `
+                    <strong>Username:</strong> ${image.username}<br>
+                    <strong>Topic:</strong> ${image.topic}<br>
+                    <strong>Timestamp:</strong> ${image.timestamp}`;
                 imgContainer.appendChild(info);
 
                 gallery.appendChild(imgContainer);
@@ -32,6 +33,10 @@ function getImages() {
         });
 }
 
+function showOriginalImage(imageData) {
+    localStorage.setItem('imageDetail', JSON.stringify(imageData));
+    window.location.href = 'image-detail.html';
+}
 
 // upload image and metadata to the server.
 function uploadImage() {

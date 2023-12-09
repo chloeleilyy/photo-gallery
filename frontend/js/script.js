@@ -66,10 +66,7 @@ function setupLogout() {
 
 
 
-function showImageDetail(imageData) {
-    localStorage.setItem('imageDetail', JSON.stringify(imageData));
-    window.location.href = 'image-detail.html';
-}
+
 
 function setupToggleView() {
     const toggleButton = document.getElementById('toggleView');
