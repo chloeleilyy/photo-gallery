@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     // setup login.
     const savedUsername = localStorage.getItem('username');
+    const uploadModal = document.getElementById('uploadModal');
+    const btnOpenModal = document.getElementById('uploadButton');
+    const btnCloseModal = document.querySelector('.close-button');
+    const btnSubmitUpload = document.getElementById('submitUpload');
+
     if (savedUsername) {
         showGallery(savedUsername);
     } else {
@@ -11,6 +16,20 @@ document.addEventListener('DOMContentLoaded', function () {
     setupToggleView();
     setupSearch();
     setupUpload();
+
+    // upload modal
+    btnOpenModal.onclick = function () {
+        uploadModal.style.display = "block";
+    }
+    btnCloseModal.onclick = function () {
+        uploadModal.style.display = "none";
+    }
+    // 当用户点击模态框外部时关闭它
+    window.onclick = function (event) {
+        if (event.target == uploadModal) {
+            uploadModal.style.display = "none";
+        }
+    }
 });
 
 // login

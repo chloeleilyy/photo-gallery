@@ -24,11 +24,21 @@
         <div class="controls">
             <input type="text" id="searchBox" class="search-box" placeholder="Search by topic...">
             <button id="searchButton" class="btn">Search</button>
-            <input type="file" id="fileUpload" />
+            <!-- <input type="file" id="fileUpload" /> -->
             <button id="uploadButton" class="btn">Upload Image</button>
             <button id="toggleView" class="btn">Switch to List View</button>
         </div>
         <div id="gallery" class="gallery gallery-view"></div>
+    </div>
+    <!-- upload modal -->
+    <div id="uploadModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Upload Image</h2>
+            <input type="file" id="modalFileUpload">
+            <input type="text" id="topicInput" placeholder="Enter topic...">
+            <button id="submitUpload" class="btn">Submit</button>
+        </div>
     </div>
     <script src="../js/api.js"></script>
     <script src="../js/script.js"></script>

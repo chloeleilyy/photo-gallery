@@ -28,6 +28,19 @@
 			"Resource": [
 				"arn:aws:s3:::photo-gallery-storage/*"
 			]
+		},
+		{
+			"Sid": "DynamoDBTableAccess",
+			"Effect": "Allow",
+			"Action": [
+				"dynamodb:PutItem",
+				"dynamodb:GetItem",
+				"dynamodb:UpdateItem",
+				"dynamodb:DeleteItem",
+				"dynamodb:Scan",
+				"dynamodb:Query"
+			],
+			"Resource": "arn:aws:dynamodb:us-east-2:223199456610:table/photo-metadata"
 		}
 	]
 }
