@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
         setupLogin();
     }
 
-    loadImages();
+    getImages();
     setupToggleView();
     setupSearch();
-    setupUpload();
+    uploadImage();
 
     // upload modal
     btnOpenModal.onclick = function () {
@@ -64,38 +64,7 @@ function setupLogout() {
     });
 }
 
-// gallery
-function loadImages() {
-    const gallery = document.getElementById('gallery');
 
-    const images = [
-        { url: 'https://th.bing.com/th/id/OIP.HOGkv77hC306cbdcYR7x8QHaFm?rs=1&pid=ImgDetMain', username: 'User1', topic: 'Nature', timestamp: '2023-12-07 12:00' },
-        { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaMeK_cr7_TH_olPqXaKOymih3YDd_ZYTK9g&usqp=CAU', username: 'User2', topic: 'City', timestamp: '2023-12-07 13:00' },
-        { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJaMN1rNkeV8vdicADn7NpDU-SpLtOR53Yg&usqp=CAU', username: 'User2', topic: 'City', timestamp: '2023-12-07 13:00' }
-    ];
-
-    images.forEach(image => {
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('gallery-item');
-        imgContainer.addEventListener('click', function () {
-            showImageDetail(image);
-        });
-
-        const img = document.createElement('img');
-        img.src = image.url;
-        img.classList.add('gallery-img');
-        imgContainer.appendChild(img);
-
-        const info = document.createElement('div');
-        info.classList.add('gallery-info');
-        info.innerHTML = `<strong>Username:</strong> ${image.username}<br>
-                          <strong>Topic:</strong> ${image.topic}<br>
-                          <strong>Timestamp:</strong> ${image.timestamp}`;
-        imgContainer.appendChild(info);
-
-        gallery.appendChild(imgContainer);
-    });
-}
 
 function showImageDetail(imageData) {
     localStorage.setItem('imageDetail', JSON.stringify(imageData));
