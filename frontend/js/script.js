@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const uploadModal = document.getElementById('uploadModal');
     const btnOpenModal = document.getElementById('uploadButton');
     const btnCloseModal = document.querySelector('.close-button');
-    const btnSubmitUpload = document.getElementById('submitUpload');
+    // const btnSubmitUpload = document.getElementById('submitUpload');
 
     if (savedUsername) {
         showGallery(savedUsername);
