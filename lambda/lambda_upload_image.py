@@ -18,7 +18,6 @@ dynamodb = boto3.resource('dynamodb')
 
 def create_thumbnail(image_bytes, thumbnail_size=(128, 128)):
     with Image.open(BytesIO(image_bytes)) as image:
-        # 使用Image.Resampling.LANCZOS替换Image.ANTIALIAS
         image.thumbnail(thumbnail_size, Image.Resampling.LANCZOS)
         thumb_buffer = BytesIO()
         image.save(thumb_buffer, format=image.format)
@@ -26,10 +25,6 @@ def create_thumbnail(image_bytes, thumbnail_size=(128, 128)):
 
 
 def lambda_handler(event, context):
-    # os.system('df')
-    # os.system('uname -a')
-    # os.system('ls -l /opt/python')
-
     try:
         content_type = event['headers'].get('content-type', '')
         c_type, c_data = parse_header(content_type)
@@ -50,11 +45,7 @@ def lambda_handler(event, context):
         _, file_extension = os.path.splitext(filename)
         unique_filename = f"{unique_id}{file_extension}"
 
-        # logger.info("Username: " + username)
-        # logger.info("Topic: " + topic)
-        # logger.info("Timestamp: " + timestamp)
-        # logger.info("Unique filename: " + unique_filename)
-
+        # upload images to S3 bucket and save metadata to DynamoDB.
         s3.put_object(
             Bucket='photo-gallery-storage',
             Key=f'original/{unique_filename}',
@@ -76,12 +67,12 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({"message": "Success. Image uploaded."})
+            'body': json.dumps('Success.')
         }
 
     except Exception as e:
         logger.error(e)
         return {
             'statusCode': 500,
-            'body': json.dumps({"message": "Failed. Network error."})
+            'body': json.dumps('Failed.')
         }
