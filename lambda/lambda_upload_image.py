@@ -6,6 +6,7 @@ import uuid
 from io import BytesIO
 from cgi import parse_header, parse_multipart
 import logging
+from PIL import Image
 
 
 logger = logging.getLogger()
@@ -15,7 +16,20 @@ s3 = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 
 
+def create_thumbnail(image_bytes, thumbnail_size=(128, 128)):
+    with Image.open(BytesIO(image_bytes)) as image:
+        # 使用Image.Resampling.LANCZOS替换Image.ANTIALIAS
+        image.thumbnail(thumbnail_size, Image.Resampling.LANCZOS)
+        thumb_buffer = BytesIO()
+        image.save(thumb_buffer, format=image.format)
+        return thumb_buffer.getvalue()
+
+
 def lambda_handler(event, context):
+    # os.system('df')
+    # os.system('uname -a')
+    # os.system('ls -l /opt/python')
+
     try:
         content_type = event['headers'].get('content-type', '')
         c_type, c_data = parse_header(content_type)
@@ -29,6 +43,9 @@ def lambda_handler(event, context):
         topic = form_data["topic"][0]
         timestamp = form_data["timestamp"][0]
 
+        # create thumbnail image.
+        thumbnail_content = create_thumbnail(file_content)
+
         unique_id = str(uuid.uuid4())
         _, file_extension = os.path.splitext(filename)
         unique_filename = f"{unique_id}{file_extension}"
@@ -40,8 +57,13 @@ def lambda_handler(event, context):
 
         s3.put_object(
             Bucket='photo-gallery-storage',
-            Key=unique_filename,
+            Key=f'original/{unique_filename}',
             Body=file_content
+        )
+        s3.put_object(
+            Bucket='photo-gallery-storage',
+            Key=f'thumbnail/{unique_filename}',
+            Body=thumbnail_content
         )
         table = dynamodb.Table('photo-metadata')
         table.put_item(Item={
@@ -49,17 +71,17 @@ def lambda_handler(event, context):
             'username': username,
             'topic': topic,
             'timestamp': timestamp,
-            's3Key': unique_filename 
+            's3Key': unique_filename
         })
 
         return {
             'statusCode': 200,
-            'body': json.dumps(event)
+            'body': json.dumps({"message": "Success. Image uploaded."})
         }
 
     except Exception as e:
         logger.error(e)
         return {
             'statusCode': 500,
-            'body': json.dumps(event)
+            'body': json.dumps({"message": "Failed. Network error."})
         }
