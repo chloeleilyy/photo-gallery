@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     getImages();
     setupToggleView();
     setupSearch();
+    getTopics();
 });
 
 // login

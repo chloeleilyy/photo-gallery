@@ -36,7 +36,8 @@ function deleteImage() {
                         window.location.href = 'index.html';
                         console.log('Image deleted successfully.');
                     } else {
-                        console.error('Failed to delete image');
+                        alert('Failed to delete image.');
+                        console.error('Failed to delete image.');
                     }
                 })
                 .catch(error => {

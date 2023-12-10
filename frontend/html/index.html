@@ -36,7 +36,15 @@
             <span class="close-button">&times;</span>
             <h2>Upload Image</h2>
             <input type="file" id="modalFileUpload">
-            <input type="text" id="topicInput" placeholder="Enter topic...">
+            <!-- Combined topic selection and creation -->
+            <select id="topicSelect" onchange="checkForNewTopic(this);">
+                <option value="">Select or create a topic...</option>
+                <!-- Existing topics will be added here dynamically from backend -->
+                <option value="newTopic">-- Create New Topic --</option>
+            </select>
+            <!-- Hidden input for new topic, shown when needed -->
+            <input type="text" id="newTopicInput" placeholder="Enter new topic name" style="display:none;">
+            <!--  -->
             <button id="submitUpload" class="btn">Submit</button>
         </div>
     </div>

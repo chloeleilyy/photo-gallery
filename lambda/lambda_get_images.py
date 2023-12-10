@@ -39,7 +39,7 @@ def lambda_handler(event, context):
             'body': json.dumps(response_list)
         }
     except Exception as e:
-        logger.error(e)
+        # logger.error(e)
         return {
             'statusCode': 500,
             'body': json.dumps('Internal Server Error. Can\'t get images.')

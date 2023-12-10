@@ -35,17 +35,18 @@ function uploadImage() {
             body: formData
         }).then(response => {
             if (response.ok) {
-                // TODO: reload the gallery page.
                 return response.json();
             }
-            throw new Error('Network response was not ok.');
+            throw new Error('Error uploading image');
         }).then(data => {
-            console.log('File uploaded successfully.');
-            console.log('Response from Lambda:', data);
-        }).catch(err => console.log(err));
+            console.log('Image uploaded successfully. Response from Lambda: ' + data);
+            alert('Image uploaded successfully!');
+            window.location.reload();
+        }) .catch(err => console.log(err));
 
         // Close the modal after upload
         document.getElementById('uploadModal').style.display = "none";
+        // window.location.reload();
     });
 }
 
@@ -89,4 +90,32 @@ function showOriginalImage(imageData) {
     window.location.href = 'image-detail.html';
 }
 
+// get topics from the server.
+function getTopics() {
+    const topicSelect = document.getElementById('topicSelect');
 
+    fetch('https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/get_topics')
+        .then(response => {
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.topicList && data.topicList.length > 0) {
+                data.topicList.forEach(topic => {
+                    const option = document.createElement('option');
+                    option.value = topic;
+                    option.textContent = topic;
+                    topicSelect.appendChild(option);
+                });
+            } else {
+                // Handle cases where topicList might be empty or not present
+                console.error('No topics found or topicList is missing in the response');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching topics:', error);
+        });
+}
