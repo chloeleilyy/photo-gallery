@@ -1,43 +1,3 @@
-// get images from the server.
-function getImages() {
-    const gallery = document.getElementById('gallery');
-
-    fetch('https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/get_images')
-        .then(response => response.json())
-        .then(images => {
-            images.forEach(image => {
-                const imgContainer = document.createElement('div');
-                imgContainer.classList.add('gallery-item');
-                imgContainer.addEventListener('click', function () {
-                    showOriginalImage(image);
-                });
-
-                const img = document.createElement('img');
-                img.src = image.image_url;
-                img.classList.add('gallery-img');
-                imgContainer.appendChild(img);
-
-                const info = document.createElement('div');
-                info.classList.add('gallery-info');
-                info.innerHTML = `
-                    <strong>Username:</strong> ${image.username}<br>
-                    <strong>Topic:</strong> ${image.topic}<br>
-                    <strong>Timestamp:</strong> ${image.timestamp}`;
-                imgContainer.appendChild(info);
-
-                gallery.appendChild(imgContainer);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching images:', error);
-        });
-}
-
-function showOriginalImage(imageData) {
-    localStorage.setItem('imageDetail', JSON.stringify(imageData));
-    window.location.href = 'image-detail.html';
-}
-
 // upload image and metadata to the server.
 function uploadImage() {
     const btnSubmitUpload = document.getElementById('submitUpload');
@@ -87,3 +47,45 @@ function uploadImage() {
         document.getElementById('uploadModal').style.display = "none";
     });
 }
+
+// get images from the server.
+function getImages() {
+    const gallery = document.getElementById('gallery');
+
+    fetch('https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/get_images')
+        .then(response => response.json())
+        .then(images => {
+            images.forEach(image => {
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('gallery-item');
+                imgContainer.addEventListener('click', function () {
+                    showOriginalImage(image);
+                });
+
+                const img = document.createElement('img');
+                img.src = image.image_url;
+                img.classList.add('gallery-img');
+                imgContainer.appendChild(img);
+
+                const info = document.createElement('div');
+                info.classList.add('gallery-info');
+                info.innerHTML = `
+                    <strong>Username:</strong> ${image.username}<br>
+                    <strong>Topic:</strong> ${image.topic}<br>
+                    <strong>Timestamp:</strong> ${image.timestamp}`;
+                imgContainer.appendChild(info);
+
+                gallery.appendChild(imgContainer);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching images:', error);
+        });
+}
+
+function showOriginalImage(imageData) {
+    localStorage.setItem('imageDetail', JSON.stringify(imageData));
+    window.location.href = 'image-detail.html';
+}
+
+

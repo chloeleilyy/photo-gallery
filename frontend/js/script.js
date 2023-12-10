@@ -11,12 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         setupLogin();
     }
-
-    getImages();
-    setupToggleView();
-    setupSearch();
-    uploadImage();
-
     // upload modal
     btnOpenModal.onclick = function () {
         uploadModal.style.display = "block";
@@ -30,6 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
             uploadModal.style.display = "none";
         }
     }
+
+    uploadImage();
+    getImages();
+    setupToggleView();
+    setupSearch();
 });
 
 // login
@@ -63,9 +62,6 @@ function setupLogout() {
         window.location.reload(); // 重新加载页面
     });
 }
-
-
-
 
 
 function setupToggleView() {
