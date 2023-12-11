@@ -42,28 +42,6 @@ body {
     background-color: #0056b3;
 }
 
-.gallery-item {
-    margin-bottom: 30px;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover {
-    transform: scale(1.02);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-.gallery-info {
-    text-align: left;
-    margin-top: 10px; /* 调整上边距以与图片分开 */
-    font-size: 14px; /* 可选的字体大小调整 */
-    color: #666; /* 可选的字体颜色调整 */
-}
-
 .list-view .gallery-item {
     display: flex;
     align-items: center;
@@ -79,34 +57,90 @@ body {
     border-radius: 5px; /* 可选的，为图片添加圆角 */
 }
 
+/* gallery view */
 .gallery-view {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start; /* 靠左对齐 */
 }
 
 .gallery-view .gallery-item {
-    width: calc(33% - 20px); /* 每行三张图片 */
+    width: calc(16.666% - 20px); /* 每行六张图片 */
+    height: 100%;
+    margin-right: 20px; /* 添加右边距，可根据需要进行调整 */
     margin-bottom: 15px;
 }
 
 .gallery-view img {
+    display: flex;
     width: 100%;
-    height: auto;
+    height: 80%;
     border-radius: 5px;
 }
 
-.image-detail-container {
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    padding: 20px;
+.gallery-item {
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
 }
 
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.gallery-info {
+    text-align: left;
+    margin-top: 10px; /* 调整上边距以与图片分开 */
+    font-size: 14px; /* 可选的字体大小调整 */
+    color: #666; /* 可选的字体颜色调整 */
+}
+
+/* image detail */
+/* Center the .image-detail-container in the middle of the page */
+.image-detail-container {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 0;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff; /* Add a white background */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+/* Style the image within the .image-detail-container */
 .image-detail-container img {
-    max-width: none;
-    height: auto;
-    margin-bottom: 20px;
+    max-width: 70%; /* Ensure the image doesn't exceed its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px; /* Add a slight border radius */
+}
+
+/* Style the buttons */
+.btn {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none; /* Remove borders */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add pointer cursor */
+    margin: 5px; /* Add some spacing between buttons */
+}
+
+/* Style the Delete Image button */
+#deleteImageBtn {
+    background-color: #dc3545; /* Red background color */
+}
+
+/* Add hover effect to buttons */
+.btn:hover {
+    opacity: 0.8; /* Reduce opacity on hover */
+}
+
+/* Add a little extra spacing to the top of the container */
+.image-detail-container {
+    margin-top: 20px;
 }
 
 /* 文件上传样式 */

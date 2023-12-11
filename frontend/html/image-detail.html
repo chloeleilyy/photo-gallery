@@ -8,10 +8,12 @@
 </head>
 <body>
     <div class="image-detail-container">
-        <img id="detailImage" src="" alt="Image Detail" />
         <div id="imageInfo"></div>
-        <button id="deleteImageBtn">Delete Image</button>
-        <button onclick="window.history.back();">Back to Gallery</button>
+        <img id="detailImage" src="" alt="Image Detail" />
+        <div>
+            <button id="backToGalleryBtn" class="btn" onclick="window.history.back();">Back to Gallery</button>
+            <button id="deleteImageBtn" class="btn">Delete Image</button>
+        </div>
     </div>
     <script src="../js/api.js"></script>
     <script src="../js/image-detail.js"></script>

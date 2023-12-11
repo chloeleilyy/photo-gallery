@@ -52,7 +52,7 @@ function setupLogin() {
 function showGallery(username) {
     document.getElementById('loginContainer').style.display = 'none';
     document.getElementById('galleryContainer').style.display = 'block';
-    document.getElementById('userContainer').style.display = 'block';
+    document.getElementById('userContainer').style.display = 'flex';
     document.getElementById('usernameDisplay').textContent = 'Hello, ' + username;
     setupLogout();
 }

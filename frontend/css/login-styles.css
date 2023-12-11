@@ -40,25 +40,32 @@
 /* 用户信息和登出按钮的容器样式 */
 #userContainer {
     margin: 20px auto;
-    padding: 10px;
+    padding: 0 20px 0 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
-    width: 300px; /* 根据需要调整宽度 */
+    width: 80%; /* 根据需要调整宽度 */
 }
+
+#title {
+    margin-left: 45%;
+    margin-right: auto;
+}   
 
 /* 用户名显示样式 */
 #usernameDisplay {
     color: #333;
     font-size: 16px; /* 根据需要调整字体大小 */
+    margin-right: 10px;
 }
 
 /* 登出按钮样式 */
 #logoutButton {
     padding: 10px;
+    margin-right: 10px;
     border: none;
     border-radius: 5px;
     background-color: #dc3545; /* 登出按钮通常使用不同的颜色 */

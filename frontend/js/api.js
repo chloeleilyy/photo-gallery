@@ -62,7 +62,21 @@ function uploadImage() {
             return;
         }
         // TODO: change timestamp to be the local time zone.
-        const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
+        // const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+        // 获取当前时间的Date对象
+        const currentTimestamp = new Date();
+        // 创建纽约时区的DateTimeFormat对象
+        const nyTimeZone = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/New_York',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        // 使用DateTimeFormat对象将当前时间转换为纽约时区的本地时间
+        const timestamp = nyTimeZone.format(currentTimestamp);
 
         const formData = new FormData();
 
@@ -108,6 +122,15 @@ function getImages() {
     fetch('https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/get_images')
         .then(response => response.json())
         .then(images => {
+            // console.log(images);
+            images.sort((a, b) => {
+                const dateA = new Date(a.timestamp);
+                // console.log("dateA:", dateA);
+                const dateB = new Date(b.timestamp);
+                // console.log("dateB:", dateA);
+                return dateB - dateA;
+              });
+            // console.log(images);
             images.forEach(image => {
                 const imgContainer = document.createElement('div');
                 imgContainer.classList.add('gallery-item');
@@ -123,9 +146,9 @@ function getImages() {
                 const info = document.createElement('div');
                 info.classList.add('gallery-info');
                 info.innerHTML = `
-                    <strong>Username:</strong> ${image.username}<br>
                     <strong>Topic:</strong> ${image.topic}<br>
-                    <strong>Timestamp:</strong> ${image.timestamp}`;
+                    <strong>User:</strong> ${image.username}<br>
+                    <strong></strong> ${image.timestamp}`;
                 imgContainer.appendChild(info);
 
                 gallery.appendChild(imgContainer);
