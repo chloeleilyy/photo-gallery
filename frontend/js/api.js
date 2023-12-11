@@ -3,18 +3,26 @@ function uploadImage() {
     const btnSubmitUpload = document.getElementById('submitUpload');
     btnSubmitUpload.addEventListener('click', function () {
         const fileInput = document.getElementById('modalFileUpload');
-        const topicInput = document.getElementById('topicInput');
+        const topicSelect = document.getElementById('topicSelect');
+        const newTopicInput = document.getElementById('newTopicInput');
 
         if (fileInput.files.length === 0) {
+            alert('Please upload an image.');
             console.log('No file selected.');
             return;
         }
         const file = fileInput.files[0];
-        const topic = topicInput.value.trim();
+
+        let topic = topicSelect.value;
+        if (topic === "newTopic") {
+            topic = newTopicInput.value; // Get value from new topic input
+        }
         if (!topic) {
+            alert('Please choose/enter a topic.');
             console.log('No topic entered.');
             return;
         }
+
         const username = localStorage.getItem('username');
         if (!username) {
             console.log('Username not found.');
@@ -37,6 +45,7 @@ function uploadImage() {
             if (response.ok) {
                 return response.json();
             }
+            alert('Error uploading image!');
             throw new Error('Error uploading image');
         }).then(data => {
             console.log('Image uploaded successfully. Response from Lambda: ' + data);
@@ -119,3 +128,22 @@ function getTopics() {
             console.error('Error fetching topics:', error);
         });
 }
+
+// function getTopicSearchResult() {
+//     const searchBtn = document.getElementById('searchButton');
+//     searchBtn.addEventListener('click', function () {
+//         const topic = document.getElementById('searchBox').value;
+//         if (topic) {
+//             fetch(`https://myxv2esyw5.execute-api.us-east-2.amazonaws.com/topic_search_result?topic=${encodeURIComponent(topic)}`)
+//                 .then(response => response.json())
+//                 .then(images => {
+//                     console.log(images);
+//                 })
+//                 .catch(error => {
+//                     console.error('Error fetching images:', error);
+//                 });
+//         } else {
+//             alert("Please enter a topic to search.");
+//         }
+//     });
+// }

@@ -27,9 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     uploadImage();
     getImages();
+    getTopics();
+    
     setupToggleView();
     setupSearch();
-    getTopics();
 });
 
 // login
@@ -87,6 +88,14 @@ function setupSearch() {
     const searchButton = document.getElementById('searchButton');
     const searchBox = document.getElementById('searchBox');
 
+    searchBox.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            // event.preventDefault();
+            const searchTerm = searchBox.value.toLowerCase();
+            filterImagesByTopic(searchTerm);
+        }
+    });
+
     searchButton.addEventListener('click', function () {
         const searchTerm = searchBox.value.toLowerCase();
         filterImagesByTopic(searchTerm);
@@ -108,6 +117,15 @@ function filterImagesByTopic(topic) {
     }
 }
 
+// check if the user wants to enter a new topic.
+function checkForNewTopic(select) {
+    const newTopicInput = document.getElementById('newTopicInput');
+    if (select.value === "newTopic") {
+        newTopicInput.style.display = '';
+    } else {
+        newTopicInput.style.display = 'none';
+    }
+}
 
 
 
