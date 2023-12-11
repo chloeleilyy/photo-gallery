@@ -16,12 +16,12 @@ s3 = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 
 
-def create_thumbnail(image_bytes, thumbnail_size=(128, 128)):
-    with Image.open(BytesIO(image_bytes)) as image:
-        image.thumbnail(thumbnail_size, Image.Resampling.LANCZOS)
-        thumb_buffer = BytesIO()
-        image.save(thumb_buffer, format=image.format)
-        return thumb_buffer.getvalue()
+# def create_thumbnail(image_bytes, thumbnail_size=(128, 128)):
+#     with Image.open(BytesIO(image_bytes)) as image:
+#         image.thumbnail(thumbnail_size, Image.Resampling.LANCZOS)
+#         thumb_buffer = BytesIO()
+#         image.save(thumb_buffer, format=image.format)
+#         return thumb_buffer.getvalue()
 
 
 def lambda_handler(event, context):
@@ -33,13 +33,11 @@ def lambda_handler(event, context):
         form_data = parse_multipart(body_file, c_data)
 
         filename = form_data["filename"][0]
-        file_content = b''.join(form_data["file"])
+        file_content = b''.join(form_data["image"])
         username = form_data["username"][0]
         topic = form_data["topic"][0]
         timestamp = form_data["timestamp"][0]
-
-        # create thumbnail image.
-        thumbnail_content = create_thumbnail(file_content)
+        thumbnail_content = b''.join(form_data["thumbnail"])
 
         unique_id = str(uuid.uuid4())
         _, file_extension = os.path.splitext(filename)

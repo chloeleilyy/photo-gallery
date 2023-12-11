@@ -1,7 +1,40 @@
+function compressImage(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = event => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // 设置固定宽度为128像素
+                const thumbnailWidth = 128;
+                // 按原始图像的宽高比计算新高度
+                const scale = thumbnailWidth / img.width;
+                const thumbnailHeight = img.height * scale;
+
+                canvas.width = thumbnailWidth;
+                canvas.height = thumbnailHeight;
+
+                // 在画布上绘制按比例缩放的图像
+                ctx.drawImage(img, 0, 0, thumbnailWidth, thumbnailHeight);
+                canvas.toBlob(blob => {
+                    resolve(blob);
+                }, file.type, 0.7);
+            };
+            img.src = event.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+
+
 // upload image and metadata to the server.
 function uploadImage() {
     const btnSubmitUpload = document.getElementById('submitUpload');
-    btnSubmitUpload.addEventListener('click', function () {
+    btnSubmitUpload.addEventListener('click', async function () {
         const fileInput = document.getElementById('modalFileUpload');
         const topicSelect = document.getElementById('topicSelect');
         const newTopicInput = document.getElementById('newTopicInput');
@@ -11,7 +44,7 @@ function uploadImage() {
             console.log('No file selected.');
             return;
         }
-        const file = fileInput.files[0];
+        const image = fileInput.files[0];
 
         let topic = topicSelect.value;
         if (topic === "newTopic") {
@@ -32,8 +65,17 @@ function uploadImage() {
         const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
 
         const formData = new FormData();
-        formData.append('filename', file.name);
-        formData.append('file', file);
+
+        try {
+            const thumbnailImage = await compressImage(image);
+            formData.append('thumbnail', thumbnailImage);
+        } catch (error) {
+            console.error('Error compressing image:', error);
+        }
+
+        formData.append('filename', image.name);
+        formData.append('image', image);
+
         formData.append('username', username);
         formData.append('topic', topic);
         formData.append('timestamp', timestamp);
@@ -51,7 +93,7 @@ function uploadImage() {
             console.log('Image uploaded successfully. Response from Lambda: ' + data);
             alert('Image uploaded successfully!');
             window.location.reload();
-        }) .catch(err => console.log(err));
+        }).catch(err => console.log(err));
 
         // Close the modal after upload
         document.getElementById('uploadModal').style.display = "none";
